@@ -1,8 +1,9 @@
-// Sources flattened with hardhat v2.6.1 https://hardhat.org
+// Sources flattened with hardhat v2.8.0 https://hardhat.org
 
-// File @openzeppelin/contracts/token/ERC20/IERC20.sol@v4.3.0
+// File @openzeppelin/contracts/token/ERC20/IERC20.sol@v4.4.1
 
 // SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/IERC20.sol)
 
 pragma solidity ^0.8.0;
 
@@ -85,7 +86,10 @@ interface IERC20 {
 }
 
 
-// File @openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol@v4.3.0
+// File @openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol@v4.4.1
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/extensions/IERC20Metadata.sol)
 
 pragma solidity ^0.8.0;
 
@@ -112,7 +116,10 @@ interface IERC20Metadata is IERC20 {
 }
 
 
-// File @openzeppelin/contracts/utils/Context.sol@v4.3.0
+// File @openzeppelin/contracts/utils/Context.sol@v4.4.1
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
 
 pragma solidity ^0.8.0;
 
@@ -137,7 +144,10 @@ abstract contract Context {
 }
 
 
-// File @openzeppelin/contracts/token/ERC20/ERC20.sol@v4.3.0
+// File @openzeppelin/contracts/token/ERC20/ERC20.sol@v4.4.1
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (token/ERC20/ERC20.sol)
 
 pragma solidity ^0.8.0;
 
@@ -492,7 +502,10 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
 }
 
 
-// File @openzeppelin/contracts/access/Ownable.sol@v4.3.0
+// File @openzeppelin/contracts/access/Ownable.sol@v4.4.1
+
+// SPDX-License-Identifier: MIT
+// OpenZeppelin Contracts v4.4.1 (access/Ownable.sol)
 
 pragma solidity ^0.8.0;
 
@@ -517,7 +530,7 @@ abstract contract Ownable is Context {
      * @dev Initializes the contract setting the deployer as the initial owner.
      */
     constructor() {
-        _setOwner(_msgSender());
+        _transferOwnership(_msgSender());
     }
 
     /**
@@ -543,7 +556,7 @@ abstract contract Ownable is Context {
      * thereby removing any functionality that is only available to the owner.
      */
     function renounceOwnership() public virtual onlyOwner {
-        _setOwner(address(0));
+        _transferOwnership(address(0));
     }
 
     /**
@@ -552,10 +565,14 @@ abstract contract Ownable is Context {
      */
     function transferOwnership(address newOwner) public virtual onlyOwner {
         require(newOwner != address(0), "Ownable: new owner is the zero address");
-        _setOwner(newOwner);
+        _transferOwnership(newOwner);
     }
 
-    function _setOwner(address newOwner) private {
+    /**
+     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * Internal function without access restriction.
+     */
+    function _transferOwnership(address newOwner) internal virtual {
         address oldOwner = _owner;
         _owner = newOwner;
         emit OwnershipTransferred(oldOwner, newOwner);
@@ -565,7 +582,9 @@ abstract contract Ownable is Context {
 
 // File contracts/SportDao.sol
 
-pragma solidity ^0.8.7;
+// SPDX-License-Identifier: MIT
+
+pragma solidity 0.8.11;
 
 
 contract SportDao is ERC20, Ownable {
@@ -574,10 +593,22 @@ contract SportDao is ERC20, Ownable {
         _mint(msg.sender, INITIAL_SUPPLY);
     }
 
+    /**
+     * @dev Function mints the amount and sends them to the address
+     *
+     * @param to address where to mint the ERC20s
+     *
+     * @param amount ERC20s amount to mint
+    */
     function mint(address to, uint amount) external onlyOwner {
         _mint(to, amount);
     }
 
+    /**
+     * @dev Function burns the amount of the token from the sender address (onlyOwner can burn token)
+     *
+     * @param amount ERC20s amount to mint
+    */
     function burn(uint256 amount) external onlyOwner {
         _burn(msg.sender, amount);
     }

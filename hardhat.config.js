@@ -5,7 +5,7 @@ require('hardhat-contract-sizer');
 const { alchemyApiKey, privateKey } = require('./secrets.json');
 
 module.exports = {
-  solidity: "0.8.7",
+  solidity: "0.8.11",
   networks: {
     hardhat: {
       initialBaseFeePerGas: 1
