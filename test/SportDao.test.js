@@ -12,11 +12,11 @@ describe('SportDao contract', () => {
   });
 
   it('get name', async () => {
-    expect(await SportDaoContract.name()).to.equal('SPORTDAO');
+    expect(await SportDaoContract.name()).to.equal('Sports DAO');
   });
 
   it('get symbol', async () => {
-    expect(await SportDaoContract.symbol()).to.equal('$SPORTS');
+    expect(await SportDaoContract.symbol()).to.equal('$SPORT');
   });
 
   it('check the initial supply', async () => {

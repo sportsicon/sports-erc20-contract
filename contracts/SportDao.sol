@@ -7,7 +7,7 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 
 contract SportDao is ERC20, Ownable {
     uint public constant INITIAL_SUPPLY = 1 * (10 ** 5) * (10 ** 18);
-    constructor() ERC20("SPORTDAO", "$SPORTS") {
+    constructor() ERC20("Sports DAO", "$SPORT") {
         _mint(msg.sender, INITIAL_SUPPLY);
     }
 
